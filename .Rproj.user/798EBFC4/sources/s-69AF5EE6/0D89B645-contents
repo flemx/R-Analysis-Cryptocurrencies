@@ -102,10 +102,10 @@ get_prices_text <- content(get_prices, "text")
 get_prices_json <- fromJSON(get_prices_text, flatten = TRUE)
 get_prices_df <- as.data.frame(get_prices_json)
 
-#  As the returned JSON respons is a bit messy, clean up by creating a list of data frames for all the coins
+#  As the returned JSON response is a bit messy, clean up by creating a list of data frames for all the coins
 crypto.history <- list()
-for(j in 1:length(get_prices_df)){
-  coin <- get_prices_df$baseCurrency[j]
+for(i in 1:length(get_prices_df)){
+  coin <- get_prices_df$baseCurrency[i]
   crypto.history[[coin]] <-  filter(get_prices_df,baseCurrency==coin)$priceData[[1]]
 }
 
@@ -117,6 +117,39 @@ print(
 #  Lets look at the data for the first item in the list (BTC)
 print(
   head(crypto.history$btc)
+)
+
+#  Also create a single data frame with all data for easier data visualization plottin
+
+#  Function to return new dataframe with added column of coin
+returnNewDf <- function(index){
+  #  Get coin name & row length of data frame
+  temp.coin <- list.names(crypto.history)[index]
+  temp.rownumber <- length(crypto.history[[temp.coin]][,1])
+  #  create temp data frame from the coin name data frame of the crypto.history list and add coinname as column
+  temp.DF <- crypto.history[[index]]
+  temp.DF$coin <- rep(c(temp.coin),each=length(crypto.history[[temp.coin]][,1]))
+  return(temp.DF)
+}
+
+#  Add first data frame, then loop to add the rest
+crypto.all <- returnNewDf(1)
+for(i in 1:length(crypto.history)) {
+  crypto.all <- rbind(
+      crypto.all,returnNewDf(i)
+      
+    )
+}
+
+#
+#  Now we can access all coins from the same data frame from the different unique coins
+unique(crypto.all[c('coin')])
+
+print(
+  head(filter(crypto.all, coin=='btc'))
+)
+print(
+  head(filter(crypto.all, coin=='eth'))
 )
 
 ####-------  Start - Visualizing data  -------####
