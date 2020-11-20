@@ -1,0 +1,359 @@
+source('~/College/Data Science/CA1/Crypto_Analysis.R')
+source('~/College/Data Science/CA1/Crypto_Analysis.R')
+View(crypto.url)
+crypto.symbols
+crypto.symbols
+crypto.symbols[1]
+class(crypto.symbols)
+install.packages("tidyverse")
+library(dplyr)
+library(tidyverse)
+library(dplyr)
+library(tidyverse)
+library(dplyr)
+str_remove('hjnl/nl', "/nl")
+str_remove(crypto.symbols[1], ["/nl"," "])
+str_remove(crypto.symbols[1], "/nl"," ")
+str_remove(crypto.symbols[1], ("/nl"," ")
+str_remove(crypto.symbols[1], ("/nl"," "))
+str_remove(crypto.symbols[1], c("/nl"," "))
+str_remove(crypto.symbols[1], "/nl")
+str_remove(crypto.symbols[1], "\n")
+str_remove_all(crypto.symbols[1], "\n")
+str_remove_all(crypto.symbols[1], c("\n"," "))
+replaceBy <- c(" ")
+str_remove_all(crypto.symbols[1], " ")
+str_remove_all(crypto.symbols[1], c(" ","B"))
+str_remove_all(crypto.symbols[1], c(" ","\n"))
+str_remove(crypto.symbols[1], c(" ","\n"))
+str_remove_all(crypto.symbols[1], c(" ","\n"))
+rmvTest1 <- str_remove_all(crypto.symbols[1], "\n")
+str_remove_all(rmvTest1, " ")
+str_remove_all(str_remove_all(crypto.symbols[1], "\n"), " ")
+str_remove_all(str_remove_all(crypto.symbols, "\n"), " ")
+crypto.symbols <- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+crypto.symbols[c(FALSE,TRUE)]
+install.packages("stringr")
+gsub("[^0-9.]", "", crypto.symbols)
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from symbols
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Remove all non numeric characters and transform vectors to numeric format
+crypto.market.cap <- gsub("[^0-9.]", "", crypto.market.cap)
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market[c(FALSE,TRUE)]
+crypto.market.cap <- crypto.market[c(TRUE,FALSE)]
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from symbols
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Remove all non numeric characters and transform vectors to numeric format
+crypto.market.cap <- gsub("[^0-9.]", "", crypto.market.cap)
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(FALSE,TRUE)]
+crypto.market.cap <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.unit.price
+crypto.market.cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+crypto.market.cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Remove all non numeric characters and transform vectors to numeric format
+crypto.market.cap <- gsub("[^0-9.,]", "", crypto.market.cap)
+crypto.market.cap
+crypto.unit.price <- crypto.market.cap[c(FALSE,TRUE)]
+crypto.market.cap <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.unit.price
+crypto.market.cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+crypto.market.cap
+crypto.unit.price <- crypto.market.cap[c(FALSE,TRUE)]
+crypto.market.cap <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap
+crypto.unit.price
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+crypto.market.cap
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+crypto.market.cap
+crypto.unit.price
+crypto.market.cap[str_detect("million")]
+crypto.market.cap[str_detect(crypto.market.cap,"million")]
+crypto.market.cap[!str_detect(crypto.market.cap,"million")]
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are million or billion of market cap
+crypto.ismil <-  crypto.market.cap[str_detect(crypto.market.cap,"million")]
+# Remove all non numeric characters and format to numeric
+crypto.market.cap <- as.numeric(gsub("[^0-9.,]", "", crypto.market.cap))
+crypto.unit.price <-  as.numeric(gsub("[^0-9.,]", "", crypto.market.cap))
+crypto.market.cap[str_detect(crypto.market.cap,"million")]
+crypto.market.cap
+crypto.unit.price
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+crypto.ismil <-  crypto.market.cap[str_detect(crypto.market.cap,"million")]
+crypto.market.cap
+crypto.unit.price
+crypto.market.cap <- as.numeric(gsub("[^0-9.,]", "", crypto.market.cap))
+crypto.unit.price <-  as.numeric(gsub("[^0-9.,]", "", crypto.unit.price))
+crypto.market.cap
+crypto.unit.price
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are million or billion of market cap
+crypto.ismil <-  crypto.market.cap[str_detect(crypto.market.cap,"million")]
+crypto.market.cap
+gsub("[^0-9.,]", "", crypto.market.cap)
+as.numeric(gsub("[^0-9.,]", "", crypto.market.cap))
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are million or billion of market cap
+crypto.ismil <-  crypto.market.cap[str_detect(crypto.market.cap,"million")]
+crypto.unit.price
+gsub("[^0-9.,]", "", crypto.unit.price)
+as.numeric(gsub("[^0-9.,]", "", crypto.unit.price))
+as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
+crypto.market.cap
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are million or billion of market cap
+crypto.ismil <-  crypto.market.cap[str_detect(crypto.market.cap,"million")]
+# Remove all non numeric characters and format to numeric
+crypto.unit.price <-  as.numeric(gsub("[^0-9.,]", "", crypto.unit.price))
+# For market cap multiply to million or billion first before tranforming to numeri
+crypto.market.cap <- gsub("[^0-9.]", "", crypto.market.cap)
+crypto.market.cap
+crypto.unit.price
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are million or billion of market cap
+crypto.ismil <-  crypto.market.cap[str_detect(crypto.market.cap,"million")]
+# Remove all non numeric characters and format to numeric
+crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
+# For market cap multiply to million or billion first before tranforming to numeri
+crypto.market.cap <- gsub("[^0-9.]", "", crypto.market.cap)
+crypto.unit.price
+crypto.ismil
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are million or billion of market cap
+crypto.ismil <-  str_detect(crypto.market.cap,"million")
+# Remove all non numeric characters and format to numeric
+crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
+# For market cap multiply to million or billion first befor
+crypto.ismil
+crypto.unit.price
+crypto.market.cap
+crypto.market.cap <- gsub("[^0-9.]", "", crypto.market.cap)
+crypto.market.cap
+for(temp_market in crypto.market.cap){}
+for(i in in 1:length(crypto.market.cap)){
+if(crypto.ismil[1]){
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000000
+}else{
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000000000
+}
+}
+for(i in in 1:length(crypto.ismil)){
+print(crypto.ismil[i])
+}
+for(i in 1:length(crypto.ismil)){
+print(crypto.ismil[i])
+}
+for(i in 1:length(crypto.ismil)){
+print(crypto.ismil[i])
+}
+for(i in 1:length(crypto.ismil)){
+if(crypto.ismil[1]){
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000000
+}else{
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000000000
+}
+}
+crypto.market.cap
+crypto.market.price
+crypto.unit.price
+crypto.market.cap <- as.numeric(crypto.market.cap)
+for(i in 1:length(crypto.ismil)){
+if(crypto.ismil[1]){
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000000
+}else{
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000000000
+}
+}
+crypto.unit.price
+crypto.market.cap
+crypto.market.cap[1]
+343380000000
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are billion of market cap
+crypto.isbil <-  str_detect(crypto.market.cap,"billion")
+# Remove all non numeric characters and format to numeric
+crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
+# For market cap find billion values and change them into million units
+crypto.market.cap <- numeric(gsub("[^0-9.]", "", crypto.market.cap)  )
+for(i in 1:length(crypto.isbil)){
+if(crypto.isbil[1]){
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000
+}
+}
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are billion of market cap
+crypto.isbil <-  str_detect(crypto.market.cap,"billion")
+# Remove all non numeric characters and format to numeric
+crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
+# For market cap find billion values and change them into million units
+crypto.market.cap <- as.numeric(gsub("[^0-9.]", "", crypto.market.cap)  )
+for(i in 1:length(crypto.isbil)){
+if(crypto.isbil[1]){
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000
+}
+}
+crypto.market.cap
+crypto.unit.price
+crypto.unit.price[2] * 2
+crypto.market.cap[2] * 2
+crypto.market.cap[2] * 3
+crypto.tickers <- crypto.url %>%
+html_nodes("profile__link") %>%
+html_text()
+crypto.url %>%
+html_nodes("profile__link") %>%
+html_text()
+crypto.url %>%
+html_nodes(".profile__link") %>%
+html_text()
+crypto.name <- crypto.url %>%
+html_nodes(".profile__link") %>%
+html_text()
+str_trim(str_remove_all(crypto.name, "\n"))
+data.frame(Cryptocurrency = crypto.name, Ticker = crypto.tickers, Price=crypto.unit.price, market.cap = crypto.market.cap)
+crypto.name
+length(crypto.name)
+length(crypto.tickers)
+# Get the cryptocurency ticket symbols
+crypto.tickers <- crypto.url %>%
+html_nodes(".profile__subtitle") %>%
+html_text()
+# Get the cryptocurrency names
+crypto.name <- crypto.url %>%
+html_nodes(".profile__link") %>%
+html_text()
+# Get the current price and market cap
+crypto.market.cap<- crypto.url %>%
+html_nodes(".valuta") %>%
+html_text()
+# Clean up data, remove characters and spaces from tickers and names
+crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
+crypto.name <- str_trim(str_remove_all(crypto.name, "\n"))
+# Split current price and market cap into 2 separate vectors
+crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
+crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+#  track which indexes are billion of market cap
+crypto.isbil <-  str_detect(crypto.market.cap,"billion")
+# Remove all non numeric characters and format to numeric
+crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
+# For market cap find billion values and change them into million units
+crypto.market.cap <- as.numeric(gsub("[^0-9.]", "", crypto.market.cap)  )
+for(i in 1:length(crypto.isbil)){
+if(crypto.isbil[1]){
+crypto.market.cap[i] <- crypto.market.cap[i] * 1000
+}
+}
+data.frame(Cryptocurrency = crypto.name, Ticker = crypto.tickers, Price=crypto.unit.price, market.cap = crypto.market.cap)
+print(
+crypto.currencies
+)
+crypto.currencies <- data.frame(Cryptocurrency = crypto.name, Ticker = crypto.tickers, Price=crypto.unit.price, market.cap = crypto.market.cap)
+print(
+crypto.currencies
+)
+head(crypto.currencies)
+get("google.com")
+get("http://google.com")
+install.packages("httr")
+install.packages("jsonlite")
+require("httr")
+require("jsonlite")

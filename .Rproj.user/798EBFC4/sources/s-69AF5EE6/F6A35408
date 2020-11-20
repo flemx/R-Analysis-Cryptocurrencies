@@ -1,0 +1,32 @@
+{
+    "id": "F6A35408",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1605908095372.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "expression": "get_prices_df",
+        "caption": "get_prices_df",
+        "totalObservations": 4,
+        "displayedObservations": 4,
+        "variables": 4,
+        "cacheKey": "FD0786D2",
+        "object": "get_prices_df",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=get_prices_df&cache_key=FD0786D2&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7785080133571015269,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1605908095372,
+    "read_only": false,
+    "read_only_alternatives": []
+}
