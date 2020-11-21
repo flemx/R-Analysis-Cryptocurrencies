@@ -102,7 +102,7 @@ print(
 ### Get historical price data from REST API
 
 
-With the data collected from the web we will retrieve historical pricing data from api.tiingo.com API, we will start firt by setting up the URL to execute a GET request.
+With the data collected from the web we will retrieve historical pricing data from api.tiingo.com API, we will start by by setting up the URL to execute a GET request. An account with API token is needed from api.tiingo.com, I requested a free token which had a limit of 20K requests a day which should be more then enough. 
 
 
 ```{r}
