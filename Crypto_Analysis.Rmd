@@ -211,6 +211,8 @@ ggplot(crypto.all, aes(x=date,y=price.percentage)) + geom_line(aes(color=coin)) 
 ```
 
 
+From the tradesDone and volumeNotional column we can analyze the number of transitions and total volume in USD traded, we will compare the results and look at the daily trend over the year and the total numbers.
+
 
 ```{r}
 # Compare  frequency & volume in USD of trades over the last year
