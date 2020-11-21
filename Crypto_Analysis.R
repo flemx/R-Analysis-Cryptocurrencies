@@ -95,19 +95,55 @@ api.token = "20b7879009ee4863aef6a4dfd06fb50fb9ea447e"
 
 # Combine variables into GET URL and make call
 api.call <- paste(api.base,"?tickers=",api.tickers,"&startDate=",api.startdate,"&resampleFreq=",api.resampleFreq,"&token=",api.token,sep='')
-get_prices <- GET(api.call)
+api.prices <- GET(api.call)
 
 #  Format response to JSON
-get_prices_text <- content(get_prices, "text")
-get_prices_json <- fromJSON(get_prices_text, flatten = TRUE)
-get_prices_df <- as.data.frame(get_prices_json)
+api.prices_text <- content(get_prices, "text")
+api.prices_json <- fromJSON(get_prices_text, flatten = TRUE)
+api.prices_df <- as.data.frame(get_prices_json)
 
 #  As the returned JSON response is a bit messy, clean up by creating a list of data frames for all the coins
 crypto.history <- list()
-for(i in 1:length(get_prices_df)){
+for(i in 1:length(api.prices_df)){
   coin <- get_prices_df$baseCurrency[i]
-  crypto.history[[coin]] <-  filter(get_prices_df,baseCurrency==coin)$priceData[[1]]
+  crypto.history[[coin]] <-  filter(api.prices_df,baseCurrency==coin)$priceData[[1]]
+  #  convert date to Date format
+  crypto.history[[coin]]$date <- as.Date(crypto.history[[coin]]$date)
 }
+
+
+
+returnNewDf <- function(index){
+  
+  #  Get coin and stor dataframe
+  temp.coin <- get_prices_df$baseCurrency[index]
+  temp.df  <-  filter(api.prices_df,baseCurrency==coin)$priceData[[1]]
+  # Get length and store coin name as new column
+  temp.rownumber <- length(temp.df[,1])
+  temp.df$coin <- rep(c(temp.coin),each=length(temp.rownumber))
+  temp.df$date <- as.Date(temp.df$date)
+  return(temp.df)
+}
+
+#  Add first data frame, then loop to add the rest
+crypto.all <- returnNewDf(1)
+for(i in 1:length(crypto.history)) {
+  crypto.all <- rbind(
+    crypto.all,returnNewDf(i)
+    
+  )
+}
+
+
+crypto.history2 <- data.frame()
+for(i in 1:length(api.prices_df)){
+  coin <- get_prices_df$baseCurrency[i]
+  crypto.history[[coin]] <-  filter(api.prices_df,baseCurrency==coin)$priceData[[1]]
+  #  convert date to Date format
+  crypto.history[[coin]]$date <- as.Date(crypto.history[[coin]]$date)
+}
+
+
 
 #  Now we can see all the coins that have been added
 print(
@@ -119,7 +155,7 @@ print(
   head(crypto.history$btc)
 )
 
-#  Also create a single data frame with all data for easier data visualization plottin
+#  Create a single data frame with all data for easier data visualization 
 
 #  Function to return new dataframe with added column of coin
 returnNewDf <- function(index){
@@ -129,6 +165,7 @@ returnNewDf <- function(index){
   #  create temp data frame from the coin name data frame of the crypto.history list and add coinname as column
   temp.DF <- crypto.history[[index]]
   temp.DF$coin <- rep(c(temp.coin),each=length(crypto.history[[temp.coin]][,1]))
+  temp.DF$date <- as.Date(temp.DF$date)
   return(temp.DF)
 }
 
@@ -142,7 +179,7 @@ for(i in 1:length(crypto.history)) {
 }
 
 #
-#  Now we can access all coins from the same data frame from the different unique coins
+#  Now we can access all coins from the same data frame with the different unique coins
 unique(crypto.all[c('coin')])
 
 print(
@@ -154,5 +191,6 @@ print(
 
 ####-------  Start - Visualizing data  -------####
 
+#  TO DO: Format Date to better format
 
 
