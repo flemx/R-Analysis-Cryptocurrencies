@@ -1,63 +1,80 @@
+---
+title: "Cryptocurrency Analysis"
+author: "Damien Fleminks"
+date: "21/11/2020"
+output: 
+  html_document: 
+    fig_width: 9
+---
 
-####-------  Start - install and setup packages -------####
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+### install and setup packages
+
+
+```{r loadlib, echo=T, results='hide', message=F, warning=F}
 #  rvest for web scraping
-install.packages('rvest')
+#  -> install.packages('rvest')
 library(rvest)
 
 #  tidyverse & gridExtra for data manipulation & visualization
-install.packages("tidyverse")
-install.packages("gridExtra")
+#  -> install.packages("tidyverse")
+#  -> install.packages("gridExtra")
 library(tidyverse)
 library(gridExtra)
 
 # httr & jsonlite for rest api
-install.packages("httr")
-install.packages("jsonlite")
+#  -> install.packages("httr")
+#  -> install.packages("jsonlite")
 require("httr")
 require("jsonlite")
 
 #  rlist to extend list functions
-install.packages("rlist")
+#  -> install.packages("rlist")
 library(rlist)
+```
+
+### Web scraping and data cleanup
 
 
-####-------  Start - Web scraping and data cleanup  -------####
+Use coinranking.com to get top 50 cryptocurrency coins and retrieve the ticker symbol, coin name & current market cap
 
-
-# Use coinranking.com to get top 50 cryptocurrency coins
+```{r}
 crypto.url <- read_html("https://coinranking.com/")
 
-# Get the cryptocurency ticket symbols
 crypto.tickers <- crypto.url %>% 
   html_nodes(".profile__subtitle") %>% 
   html_text()
 
-# Get the cryptocurrency names
 crypto.name <- crypto.url %>% 
   html_nodes(".profile__link") %>% 
   html_text()
 
-# Get the current price and market cap
 crypto.market.cap<- crypto.url %>% 
   html_nodes(".valuta") %>% 
   html_text()
+```
 
-# Clean up data, remove characters and spaces from tickers and names
+
+Clean up the strings by removing unused characters and split into separate vectors 
+
+```{r}
 crypto.tickers <- str_trim(str_remove_all(crypto.tickers, "\n"))
 crypto.name <- str_trim(str_remove_all(crypto.name, "\n"))
-
-# Split current price and market cap into 2 separate vectors
 crypto.unit.price <- crypto.market.cap[c(TRUE,FALSE)]
 crypto.market.cap <- crypto.market.cap[c(FALSE,TRUE)]
+```
 
-#  track which indexes are billion of market cap
+
+Convert to correct data types and track which market cap price uses price unit in billion so we can multiply all output into units of million
+
+```{r}
 crypto.isbil <-  str_detect(crypto.market.cap,"billion")
+crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price))
 
-# Remove all non numeric characters and format to numeric
-crypto.unit.price <-  as.numeric(gsub("[^0-9.]", "", crypto.unit.price)) 
-
-# For market cap find billion values and change them into million units
+# find billion values and change them into million units
 crypto.market.cap <- as.numeric(gsub("[^0-9.]", "", crypto.market.cap))
 for(i in 1:length(crypto.isbil)){
      if(crypto.isbil[i]){
@@ -67,11 +84,28 @@ for(i in 1:length(crypto.isbil)){
 
 # Create data frame of scraped and formatted data
 crypto.currencies <- data.frame(Cryptocurrency = crypto.name, Ticker = crypto.tickers, Price=crypto.unit.price, market.cap = crypto.market.cap)
-print(
-  crypto.currencies
-)
+```
 
-####-------  Start - Get historical price data from REST API  -------####
+
+We now have a cleaned up Data frame with currency data that was taken from coinranking.com. We will use this data to retrieve historical price data from an api.
+
+```{r crypto.currencies}
+print(
+  head(crypto.currencies)
+)
+```
+
+
+
+
+
+### Get historical price data from REST API
+
+
+With the data collected from the web we will retrieve historical pricing data from api.tiingo.com API, we will start firt by setting up the URL to execute a GET request.
+
+
+```{r}
 
 #  Setting up base URL for cryptocurrency price history API
 api.base <- "https://api.tiingo.com/tiingo/crypto/prices"
@@ -93,8 +127,14 @@ api.resampleFreq = "1day"
 # API token for authentication  (A free token can be requested at: api.tiingo.com, but you can use mine for now)
 api.token = "20b7879009ee4863aef6a4dfd06fb50fb9ea447e"
 
-# Combine variables into GET URL and make call
-api.call <- paste(api.base,"?tickers=",api.tickers,"&startDate=",api.startdate,"&resampleFreq=",api.resampleFreq,"&token=",api.token,sep='')
+# Combine variables into GET URL 
+api.call <- paste(api.base, "?tickers=",api.tickers,"&startDate=",api.startdate,"&resampleFreq=",api.resampleFreq,"&token=",api.token,sep='')
+```
+
+
+Make GET request with the request URL and store response in variable, we will convert the result into JSON and clean up the data and format it into a usuable format for our analysis.
+
+```{r, echo=T, results='hide', message=F, warning=F}
 api.prices <- GET(api.call)
 
 #  Format response to JSON
@@ -130,9 +170,13 @@ for(i in 1:length(api.prices_df[,1])) {
   )
 }
 
+```
 
 
-#  Now we can access all coins from the same data frame with the different unique coins
+Now we can access all coins from the same data frame with the different unique coins, looking at the head of 2 examples
+
+
+```{r crypto.all}
 unique(crypto.all[c('coin')])
 
 print(
@@ -141,37 +185,46 @@ print(
 print(
   head(filter(crypto.all, coin=='eth'))
 )
+```
 
-####-------  Start - Visualizing data  -------####
 
+### Visualizing the data
+
+We can analyze the price of the coins over time to see how they have performed over the past year.
+
+```{r}
 
 # Plot a line graph for all coin prices
-cPrice1 <- ggplot(filter(crypto.all, coin=='btc'), aes(x=date,y=close)) + geom_line()
-cPrice2 <- ggplot(filter(crypto.all, coin=='eth'), aes(x=date,y=close)) + geom_line()
-cPrice3 <- ggplot(filter(crypto.all, coin=='link'), aes(x=date,y=close)) + geom_line()
-cPrice4 <- ggplot(filter(crypto.all, coin=='xrp'), aes(x=date,y=close)) + geom_line()
+cPrice1 <- ggplot(filter(crypto.all, coin=='btc'), aes(x=date,y=close)) + geom_line() + ggtitle("Bitcoin")
+cPrice2 <- ggplot(filter(crypto.all, coin=='eth'), aes(x=date,y=close)) + geom_line() + ggtitle("Ethereum")
+cPrice3 <- ggplot(filter(crypto.all, coin=='link'), aes(x=date,y=close)) + geom_line() + ggtitle("Chainlink")
+cPrice4 <- ggplot(filter(crypto.all, coin=='xrp'), aes(x=date,y=close)) + geom_line() + ggtitle("XRP")
 grid.arrange(cPrice1 , cPrice2, cPrice3, cPrice4, nrow = 2)
+```
+
+As we have added an extra column to compare the percentage of the price to the max price we can compare how all coins compared relatively from each other in terms of price fluctation.
+
+```{r}
 
 # Compare the different coins on the percentage growth
-ggplot(crypto.all, aes(x=date,y=price.percentage)) + geom_line(aes(color=coin))       
+ggplot(crypto.all, aes(x=date,y=price.percentage)) + geom_line(aes(color=coin)) + ggtitle("Price Fluctation")      
+```
 
 
+
+```{r}
 # Compare  frequency & volume in USD of trades over the last year
 
-cTradeComp <- ggplot(crypto.all, aes(x=date,y=tradesDone)) + geom_line(aes(color=coin))
-cVolComp <- ggplot(crypto.all, aes(x=date,y=volumeNotional)) + geom_line(aes(color=coin))
+cTradeComp <- ggplot(crypto.all, aes(x=date,y=tradesDone)) + geom_line(aes(color=coin))  + ggtitle("Transactions per day")  
+cVolComp <- ggplot(crypto.all, aes(x=date,y=volumeNotional)) + geom_line(aes(color=coin))  + ggtitle("Volume in USD per day")  
 grid.arrange(cTradeComp , cVolComp, nrow = 2)
 
 # Compare total frequency & volume of trade 
 
-cTradeTotal <-ggplot(crypto.all) + geom_bar(aes(y=tradesDone, x=coin, fill=factor(coin)), stat="identity")
-cVolTotal <- ggplot(crypto.all) + geom_bar(aes(y=volumeNotional, x=coin, fill=factor(coin)), stat="identity")
+cTradeTotal <-ggplot(crypto.all) + geom_bar(aes(y=tradesDone, x=coin, fill=factor(coin)), stat="identity")  + ggtitle("Total transactions")  
+cVolTotal <- ggplot(crypto.all) + geom_bar(aes(y=volumeNotional, x=coin, fill=factor(coin)), stat="identity") + ggtitle("Total volume traded in USD")  
 grid.arrange(cTradeTotal , cVolTotal, nrow = 1)
 
-
-
-# TODO: Compare which coin made the largest increase in percentage 
-   
-
+```
 
 
