@@ -2,9 +2,11 @@
 title: "Cryptocurrency Analysis"
 author: "Damien Fleminks"
 date: "21/11/2020"
-output: 
+output:
   html_document: 
     fig_width: 9
+    fig_height: 6
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
